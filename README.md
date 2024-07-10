@@ -61,7 +61,7 @@ axs[0].set_title('Gambar Asli')
 axs[1].imshow(rot)
 axs[1].set_title('Rotated Image')
 ```
-Output :
+Output :<br>
 ![Merotasi Gambar](images/rotated.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -90,7 +90,7 @@ axs[0].set_title('Gambar Asli')
 axs[1].imshow(res)
 axs[1].set_title('Resize Image')
 ```
-Output :
+Output :<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -111,7 +111,7 @@ axs[0].set_title('Gambar Asli')
 axs[1].imshow(crop)
 axs[1].set_title('Cropped Image')
 ```
-Output :
+Output :<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -132,7 +132,7 @@ axs[0].set_title('Gambar Asli')
 axs[1].imshow(flip)
 axs[1].set_title('Flipped Image')
 ```
-Output :
+Output :<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -154,8 +154,9 @@ axs[0].set_title('Gambar Asli')
 axs[1].imshow(trans)
 axs[1].set_title('Translated Image')
 ```
-Output :
+Output :<br>
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 **Menampilkan Gambar Keseluruhan**
 ```
@@ -187,11 +188,84 @@ cropped, flipped, dan translated). Pengaturan ini memungkinkan perbandingan visu
 berbagai hasil transformasi. Setiap subplot diberi judul yang menjelaskan operasi yang dilakukan, memberikan representasi 
 visual yang komprehensif dari seluruh proses pengolahan citra yang telah dilakukan.
 
-Output :
+Output :<br>
 
 ---
 ## Teori yang mendukung :
-Dalam proses pengerjaan, berikut adalah beberapa teori yang mendukung dalam project :
-1. Representasi Citra Digital
+Dalam proses pengerjaan, berikut adalah beberapa teori yang mendukung dalam project : <br>
+
+**1. Representasi Citra Digital <br>**
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Citra digital direpresentasikan sebagai matriks 2D untuk gambar
+   grayscale atau 3D untuk gambar berwarna. Dalam kasus gambar berwarna, matriks 3D memiliki dimensi tinggi x lebar x 3
+   (untuk channels R, G, B). Setiap elemen matriks, disebut piksel, memiliki nilai intensitas antara 0-255 untuk gambar 8-bit.
+   Misalnya, [255, 0, 0] merepresentasikan warna merah murni.<br>
+**2. Ruang Warna <br>**
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenCV menggunakan format BGR (Blue, Green, Red) secara default, sementara matplotlib menggunakan RGB. Konversi BGR ke RGB
+   dilakukan dengan menukar channel pertama dan ketiga. Ruang warna lain seperti HSV, LAB juga ada, masing-masing memiliki
+   kegunaan spesifik dalam pengolahan citra. <br>
+**3. Transformasi Geometri <br>**
+   **a. Rotasi <br>**
    
-3. Ruang Warna
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotasi gambar melibatkan pemutaran setiap piksel mengelilingi titik pusat yang ditentukan. Matriks rotasi
+2D [cos θ, -sin θ; sin θ, cos θ] digunakan untuk menghitung posisi baru setiap piksel. Dalam implementasinya, OpenCV menggunakan fungsi getRotationMatrix2D() untuk membuat matriks rotasi dan warpAffine() untuk menerapkan rotasi. Rotasi dapat menyebabkan sebagian gambar terpotong atau area kosong muncul di sudut-sudut, tergantung pada sudut rotasi. Proses rotasi melibatkan langkah-langkah berikut: <br>
+   - Menentukan titik pusat rotasi (biasanya pusat gambar).
+   - Menghitung matriks rotasi berdasarkan sudut θ yang diinginkan.
+   - Untuk setiap piksel, menghitung posisi barunya menggunakan matriks rotasi.
+   - Menginterpolasi nilai piksel jika posisi baru tidak tepat jatuh pada koordinat integer. <br>
+
+   **b. Penskalaan (Resize)** <br>
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penskalaan mengubah ukuran gambar dengan faktor tertentu. Ini melibatkan perubahan jumlah piksel dalam gambar. Proses penskalaan meliputi: <br>
+   - Menentukan faktor skala (misalnya, 2 untuk memperbesar dua kali lipat).
+   - Menghitung dimensi baru gambar berdasarkan faktor skala.
+   - Untuk setiap piksel dalam gambar baru, menentukan piksel mana dari gambar asli yang sesuai.
+   - Menggunakan teknik interpolasi untuk menghitung nilai piksel baru jika tidak ada korespondensi satu-ke-satu. <br>
+      
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Metode interpolasi yang umum digunakan termasuk nearest neighbor (paling cepat tapi kasar),
+bilinear (lebih halus), dan bicubic (paling halus tapi paling lambat). OpenCV menyediakan fungsi resize() untuk melakukan penskalaan dengan berbagai metode interpolasi.<br>
+
+   **c. Cropping** <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cropping adalah proses memotong sebagian dari gambar untuk mendapatkan area yang diinginkan.
+   Proses cropping ini melibatkan: <br>
+
+   - Penentuan koordinat:
+
+      - Baris mulai dari 100 hingga 249 (250 tidak termasuk)
+      - Kolom mulai dari 280 hingga 429 (430 tidak termasuk)
+
+   - Slicing array: Menggunakan notasi slicing NumPy untuk mengekstrak bagian yang diinginkan dari array gambar.
+   - Hasil: Sebuah sub-array yang merepresentasikan bagian yang dipotong dari gambar asli. <br>
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cropping berguna untuk berbagai tujuan, termasuk fokus pada area tertentu dalam gambar, menghilangkan bagian yang tidak diinginkan, mengubah aspek rasio gambar, dan mempersiapkan data untuk analisis spesifik. <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dalam konteks pengolahan citra, cropping termasuk dalam kategori transformasi geometri, meskipun lebih sederhana dibandingkan rotasi atau penskalaan. Cropping tidak mengubah nilai piksel, hanya mengekstrak subset dari piksel yang ada.
+
+   **d. Flipping** <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flipping membalik gambar secara horizontal, vertikal, atau keduanya. Jenis-jenis flipping: <br>
+   - Horizontal flip: Membalik gambar dari kiri ke kanan.
+   - Vertical flip: Membalik gambar dari atas ke bawah.
+   - Horizontal dan vertical flip: Kombinasi keduanya, setara dengan rotasi 180 derajat. <br>
+      
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proses flipping melibatkan: <br>
+   - Menentukan jenis flip (horizontal, vertical, atau keduanya).
+   - Untuk setiap piksel, menghitung posisi barunya berdasarkan jenis flip.
+   - Menyalin nilai piksel ke posisi baru dalam gambar hasil. <br>
+        
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenCV menyediakan fungsi flip() yang memudahkan operasi ini.
+Flipping sering digunakan dalam augmentasi data untuk machine learning atau untuk mengoreksi orientasi gambar. 
+Setiap transformasi geometri ini memiliki aplikasi spesifik dalam pengolahan citra dan dapat dikombinasikan untuk mencapai 
+efek yang lebih kompleks. Pemahaman mendalam tentang cara kerja setiap transformasi memungkinkan penggunaan yang lebih efektif 
+dalam berbagai tugas pengolahan citra.
+
+   **e. Translasi** <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Translasi melibatkan pergeseran setiap piksel dalam gambar
+dengan jarak tertentu secara horizontal dan/atau vertikal. Proses translasi meliputi: <br>
+   - Menentukan jumlah piksel untuk pergeseran horizontal (tx) dan vertikal (ty).
+   - Membuat matriks translasi [1, 0, tx; 0, 1, ty].
+   - Menerapkan matriks translasi ke setiap piksel dalam gambar.
+        
+   Matriks translasi [1, 0, tx; 0, 1, ty] bekerja dengan cara: <br>
+   - Koordinat x baru = x lama + tx
+   - Koordinat y baru = y lama + ty
+        
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenCV menggunakan fungsi warpAffine() untuk menerapkan translasi. 
+Translasi dapat menyebabkan sebagian gambar keluar dari batas atau menciptakan area kosong, tergantung pada arah dan besarnya pergeseran. <br>
