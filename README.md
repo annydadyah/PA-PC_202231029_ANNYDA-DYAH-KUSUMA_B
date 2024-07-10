@@ -62,6 +62,7 @@ axs[1].imshow(rot)
 axs[1].set_title('Rotated Image')
 ```
 Output :
+![Merotasi Gambar](images/rotated.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
