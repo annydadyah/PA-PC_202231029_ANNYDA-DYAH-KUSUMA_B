@@ -6,6 +6,10 @@ Kelas : B <br>
 Ketentuan Project : Geommterix Citra <br>
 
 ---
+## Pendahuluan 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operasi Geometri pada pengolahan citra ditujukan untuk memodifikasi koordinat piksel 
+dalam suatu citra dengan pendekatan tertentu, tetapi dalam perkembangannya dimungkinkan 
+juga memodifikasi nilai skala keabuan. <br>
 
 ## Tahapan dalam geometrix citra
 Dalam mengerjakan project, saya melakukan beberapa hal :
@@ -91,17 +95,17 @@ axs[1].imshow(res)
 axs[1].set_title('Resize Image')
 ```
 Output :<br>
-
+![Merotasi Gambar](images/resized.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 **Memotong Gambar** <br>
 ```
-crop = img[100:250, 280:430]
+crop = img[400:800, 300:700] 
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operasi cropping dilakukan menggunakan teknik slicing array NumPy. Potongan gambar diambil dengan menentukan rentang indeks untuk 
-baris dan kolom array gambar: img[100:250, 280:430]. Ini berarti mengambil bagian gambar dari baris 100 hingga 249 dan kolom 280 
-hingga 429. Proses ini efektif mengekstrak area persegi panjang spesifik dari gambar asli, memungkinkan fokus pada region of interest 
-tertentu untuk analisis atau pemrosesan lebih lanjut. <br>
+baris dan kolom array gambar: img[400:800, 300:700]. Ini berarti mengambil bagian gambar dari baris 400 hingga 800 dan kolom 300 
+hingga 700. Proses ini efektif mengekstrak area persegi panjang spesifik dari gambar asli, memungkinkan fokus pada region of interest 
+tertentu untuk analisis atau pemrosesan lebih lanjut yang mana pada kasus ini saya melakukan cropping bagian muka saja. <br>
 
 Untuk menampilkan hasilnya dan membandingkan dengan gambar asli bisa menggunakan plot. <br>
 ```
@@ -112,7 +116,7 @@ axs[1].imshow(crop)
 axs[1].set_title('Cropped Image')
 ```
 Output :<br>
-
+![Merotasi Gambar](images/cropped.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 **Membalikkan Gambar** <br>
@@ -133,7 +137,7 @@ axs[1].imshow(flip)
 axs[1].set_title('Flipped Image')
 ```
 Output :<br>
-
+![Merotasi Gambar](images/flipped.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 **Translasi Gambar** <br>
@@ -155,7 +159,7 @@ axs[1].imshow(trans)
 axs[1].set_title('Translated Image')
 ```
 Output :<br>
-
+![Merotasi Gambar](images/translated.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 **Menampilkan Gambar Keseluruhan**
@@ -189,6 +193,7 @@ berbagai hasil transformasi. Setiap subplot diberi judul yang menjelaskan operas
 visual yang komprehensif dari seluruh proses pengolahan citra yang telah dilakukan.
 
 Output :<br>
+![Merotasi Gambar](images/all.png)
 
 ---
 ## Teori yang mendukung :
